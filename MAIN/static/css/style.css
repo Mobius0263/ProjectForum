@@ -436,6 +436,14 @@ footer{
     float: right;
 }
 
+.post-image{
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
 /* comment section */
 .comment-area{
     margin-bottom:50px;

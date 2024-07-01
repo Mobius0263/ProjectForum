@@ -6,6 +6,9 @@ from register.forms import UpdateForm
 from django.contrib.auth import logout as lt
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db import IntegrityError
+from main.models import Author
+from django.utils.text import slugify
 
 # Create your views here.
 def signup(request):
@@ -41,13 +44,17 @@ def signin(request):
 def update_profile(request):
     context = {}
     user = request.user
-    form = UpdateForm(request.POST, request.FILES)
+    author, created = Author.objects.get_or_create(user=user)
+    form = UpdateForm(request.POST or None, request.FILES or None, instance=author)
     if request.method == "POST":
         if form.is_valid():
-            update_profile = form.save(commit=False)
-            update_profile.user = user
-            update_profile.save()
-            return redirect("home")
+            try:
+                author = form.save(commit=False)
+                author.slug = slugify(author.fullname)
+                author.save()
+                return redirect("home")
+            except IntegrityError:
+                messages.error(request, 'This slug is already in use. Please choose another one.')
     context.update({
         "form":form,
         "title":"Update Profile",

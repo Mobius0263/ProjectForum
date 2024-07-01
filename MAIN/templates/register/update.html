@@ -4,6 +4,12 @@
 
 <h1 style="text-align:center; margin-block:50px; color:red;">Hey {{user}}, Become An Author</h1>
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
 <form method="POST" action="." enctype="multipart/form-data" style="margin-left:150px;margin-bottom: 150px;  color:black;">
     {% csrf_token %}    
     {{form|crispy}}

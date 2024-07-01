@@ -28,6 +28,10 @@
                 <div class="content">
                     {{post.content|safe}}
                     <br>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                    {% endif %}
+                    <br>
                     <div class="comment">
                         <button onclick="showComment()">Comment</button>
                     </div>
