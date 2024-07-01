@@ -1,3 +1,15 @@
+Updates:
+- MAIN/main/forms.py
+- MAIN/main/models.py
+- MAIN/main/views.py
+- MAIN/register/views.py
+- MAIN/static/css/style.css
+- MAIN/templates/base.html
+- MAIN/templates/create_post.html
+- MAIN/templates/detail.html
+- MAIN/templates/posts.html
+- MAIN/templates/register/update.html
+
 Clone repository:
 ```
 git clone https://github.com/Mobius0263/ProjectForum.git
