@@ -1,4 +1,8 @@
-Updates:
+Updates 2:
+- Added update profile into MAIN/main/templates/base.html
+- removed MAIN/main/templates/home.html
+
+Updates 1:
 - MAIN/main/forms.py
 - MAIN/main/models.py
 - MAIN/main/views.py
