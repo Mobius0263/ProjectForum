@@ -1,3 +1,7 @@
+Updates 3:
+- Added comments for all important .py files
+- Added comments for MAIN/main/static/js/main.js
+
 Updates 2:
 - Added update profile into MAIN/main/templates/base.html
 - removed MAIN/main/templates/home.html
