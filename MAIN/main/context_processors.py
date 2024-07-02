@@ -1,7 +1,7 @@
 #Import the Post model from the main app
 from main.models import Post
 
-#Define search function
+#Define search function for searching a post
 def searchFunction(request):
     search_context = {}  #Initialize an empty dictionary for the search context
     posts = Post.objects.all()  #Retrieve all posts from the database

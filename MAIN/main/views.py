@@ -76,18 +76,18 @@ def posts(request, slug):
         "posts": posts,
         "forum": category,
         "title": "COSPLAY: Posts"
-    }
+    } 
 
     return render(request, "posts.html", context) #Render the Posts view with the context
 
-#Login requirements
+#Login requirement for create_post view
 @login_required
 def create_post(request):
-    context = {}
+    context = {} #Initialize an empty context dictionary
     form = PostForm(request.POST or None, request.FILES or None) #Create a new Post form
-    if request.method == "POST":
-        if form.is_valid():
-            print("\n\n its valid")
+    if request.method == "POST":  #Check if the request method is POST
+        if form.is_valid(): #Check if the form is valid
+            print("\n\n its valid") #Debug to check if the form is valid
             author = Author.objects.get(user=request.user) #Get the Author from the authenticated User
             new_post = form.save(commit=False) #Save the form data to a new Post object, without committing to the database
             new_post.user = author #Set the Post's Author
@@ -98,7 +98,7 @@ def create_post(request):
     context.update({
         "form": form,
         "title": "COSPLAY: Create New Post"
-    })
+    }) #Update the context with the form and title
     return render(request, "create_post.html", context) #Render the create Post view with the context
 
 #Latest posts view
@@ -107,7 +107,7 @@ def latest_posts(request):
     context = {
         "posts":posts,
         "title": "COSPLAY: Latest 10 Posts"
-    }
+    } #Context to be passed to the template
 
     return render(request, "latest-posts.html", context) #Render the latest Posts view with the context
 

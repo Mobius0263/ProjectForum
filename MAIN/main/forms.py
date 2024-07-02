@@ -1,9 +1,9 @@
-#Import the necessary modules and libraries
+#Import the necessary modules and models
 from django import forms
 from tinymce.widgets import TinyMCE
 from .models import Post
 
-#Define a form for creating ad editing Posts
+#Define PostForm class for creating and editing a post
 class PostForm(forms.ModelForm):
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30})) #Character field for the content of the post
     

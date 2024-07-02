@@ -2,7 +2,7 @@
 from hitcount.utils import get_hitcount_model
 from hitcount.views import HitCountMixin
 
-#Function to update the view count for an object
+#Define a function to update the view count for an object
 def update_views(request, object):
     context = {} #Initialize empty context
     hit_count = get_hitcount_model().objects.get_for_object(object) #Get or create the hit count object for the given object
