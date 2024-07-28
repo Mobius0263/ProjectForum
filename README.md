@@ -1,3 +1,21 @@
+Update 4:
+- MAIN/ProjectForum/settings.py (TinyMCE default added, Line 134)
+- MAIN/main/apps.py
+- MAIN/main/models.py (Added email)
+- MAIN/main/signals.py (Added)
+- MAIN/main/views.py
+- MAIN/register/forms.py (Added CustomUserCreationForm)
+- MAIN/register/views.py (Changed signup function)
+- MAIN/static/css/style.css (Minor color change)
+- MAIN/templates/base.html (Show username and profile pic)
+- MAIN/templates/create_post.html (Added TinyMCE text editor)
+- MAIN/templates/detail.html (Added date of creation, changed username and fullname, changed comment textbox to TinyMCE text editor)
+- MAIN/templates/forums.html (Changed fullname to username)
+- MAIN/templates/latest-posts.html (Minor typo fix, changed fullname to username)
+- MAIN/templates/posts.html (Changed fullname to username)
+- MAIN/templates/search.html(Changed fullname to username)
+- MAIN/templates/register/signup.html (Added error message)
+
 Updates 3:
 - Added comments for all important .py files
 - Added comments for MAIN/main/static/js/main.js
