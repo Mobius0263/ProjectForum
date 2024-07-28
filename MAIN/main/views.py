@@ -14,6 +14,12 @@ def home(request):
     num_posts = Post.objects.all().count() #Count all Posts
     num_users = User.objects.all().count() #Count all Users
     num_categories = forums.count() #Count all Categories
+    
+    # Get the Author for the authenticated User if logged in
+    author = None
+    if request.user.is_authenticated:
+        author = Author.objects.get(user=request.user)
+    
     try:
         last_post = Post.objects.latest("date") #Get latest Post
     except:
@@ -26,7 +32,8 @@ def home(request):
         "num_users":num_users,
         "num_categories":num_categories,
         "last_post":last_post,
-        "title": "COSPLAY Forum"
+        "title": "COSPLAY Forum",
+        "author": author, 
     }
     return render(request, "forums.html", context) #Render the homepage with the context
 
@@ -103,7 +110,7 @@ def create_post(request):
 
 #Latest posts view
 def latest_posts(request):
-    posts = Post.objects.all().filter(approved=True)[:10] #Get the 10 latest approved Posts
+    posts = Post.objects.all().filter(approved=True).order_by('-date')[:10] #Get the 10 latest approved Posts
     context = {
         "posts":posts,
         "title": "COSPLAY: Latest 10 Posts"

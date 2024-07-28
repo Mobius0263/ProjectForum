@@ -11,3 +11,20 @@
 </form>
 
 {% endblock content %}
+
+{% block extra_js %}
+    <!-- Load TinyMCE -->
+    <script>
+        tinymce.init({
+            theme: 'silver',
+            height: 500,
+            width: 1000,
+            font_size_input_default_unit: "12pt",
+            selector: 'textarea',
+            plugins: 'advlist,autolink,lists,link,image,charmap,print,preview,anchor,emoticons,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount',
+            toolbar: 'undo redo | fontsizeinput | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | emoticons',
+            menubar: true,
+            statusbar: false
+        });
+    </script>
+{% endblock %}

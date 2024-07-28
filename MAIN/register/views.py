@@ -1,9 +1,9 @@
 #Import necessary modules from Django and other libraries
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.decorators import login_required
-from register.forms import UpdateForm
+from register.forms import CustomUserCreationForm, UpdateForm
 from django.contrib.auth import logout as lt
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -14,11 +14,11 @@ from django.utils.text import slugify
 #signup view
 def signup(request):
     context = {} #Initialize an empty context dictionary
-    form = UserCreationForm(request.POST or None) #Instantiate a UserCreationForm with POST data if available
+    form = CustomUserCreationForm(request.POST or None) #Instantiate a UserCreationForm with POST data if available
     if request.method == 'POST': #Check if the request method is POST
         if form.is_valid(): #Check if the form is valid
             new_user = form.save() #Save the new user
-            login(request, new_user) #Log in the new user
+            auth_login(request, new_user) #Log in the new user
             return redirect("update_profile") #Redirect to the update_profile view
     context.update({
         "form": form,
@@ -31,11 +31,10 @@ def signin(request):
     context = {} #Initialize an empty context dictionary
     form = AuthenticationForm(request, data=request.POST) #Instantiate an AuthenticationForm with POST data if available
     if form.is_valid(): #Check if the form is valid
-        user = form.cleaned_data.get("username") #Get the username from the form
-        password = form.cleaned_data.get("password") #Get the password from the form
-        user = authenticate(username=user, password=password) #Authenticate the user
-        if user is not None: #Check if the user is authenticated
-            return redirect("home") #Log in the user
+        user = form.get_user()  # Get the authenticated user
+        auth_login(request, user)  # Log in the user
+        next_url = request.GET.get('next', 'home')  # Get the 'next' URL parameter or default to 'home'
+        return redirect(next_url)  # Redirect to the 'next' URL
     context.update({
         "form":form,
         "title":"Signin",

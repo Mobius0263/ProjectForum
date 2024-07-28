@@ -131,4 +131,20 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/b35t670ndgojtx6rg7t44l5ovo5xdzzhjrzvonsbjrhi1fv4/tinymce/7/tinymce.min.js'
+TINYMCE_COMPRESSOR = False
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 500,
+    "menubar": False,
+    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,"
+    "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,emoticons"
+    "code,help,wordcount",
+    "toolbar": "undo redo | formatselect | "
+    "bold italic underline backcolor | fontsizeinput | alignleft aligncenter "
+    "alignright alignjustify | bullist numlist outdent indent | "
+    "removeformat | help",
+    "referrerpolicy": "origin"
+}
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

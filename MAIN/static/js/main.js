@@ -21,7 +21,7 @@ function showComment(){
 }
 
 // Function to show the reply area
-function showReply(){
-    var replyArea = document.getElementById("reply-area");  // Get the element with ID 'reply-area'
+function showReply(commentId){
+    var replyArea = document.getElementById(commentId);  // Get the element with ID 'reply-area'
     replyArea.classList.remove("hide");  // Remove the 'hide' class from the 'reply-area' element (show it)
 }

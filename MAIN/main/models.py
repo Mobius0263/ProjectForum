@@ -15,8 +15,9 @@ User = get_user_model()
 #Define Author model
 class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) #Link to user model
+    email = models.EmailField(max_length=254, blank=True, null=False) #Email address of the user/author)
     fullname = models.CharField(max_length=40, blank=True) #Full name of the user/author
-    slug = slug = models.SlugField(max_length=400, unique=True, blank=True) #URL version of the name
+    slug = models.SlugField(max_length=400, unique=True, blank=True) #URL version of the name
     bio = HTMLField() #HTML field for author's bio
     points = models.IntegerField(default=0) #Points the author has received
     profile_pic = ResizedImageField(size=[50, 80], quality=100, upload_to="authors", default=None, null=True, blank=True) #Profile image
@@ -127,6 +128,12 @@ class Post(models.Model):
         return reverse("detail", kwargs={
             "slug":self.slug
         })
+        
+    class Meta:
+        indexes = [
+            models.Index(fields=['date']),
+            models.Index(fields=['slug']),
+        ]
 
     #Property to count the number of comments on the post
     @property
@@ -136,6 +143,6 @@ class Post(models.Model):
     #Property to get the latest reply on the post
     @property
     def last_reply(self):
-        return self.comments.latest("date")
+        return self.comments.order_by('-date').first()
 
     

@@ -13,7 +13,7 @@ html{
 }
 
 a{
-    color:#ffffff;
+    color:#1c2833;
     font-weight: bolder;
     text-decoration: none;
 }
@@ -159,8 +159,17 @@ header{
 
 .nav-item a{
     float: right;
-    display:block;
+    display: block;
     text-align: center;
+    margin-inline: 20px;
+    font-size: 20px;
+    padding: 10px;
+    color:#fff;
+}
+
+.nav-item img{
+    float: left;
+    display: block;
     margin-inline: 20px;
     font-size: 20px;
     padding: 10px;
@@ -266,7 +275,7 @@ header{
 /* forum info Styling */
 .forum-info{
     padding: 20px;
-    background-color: #283747;
+    background-color: #5d6d7e;
 }
 
 .chart{

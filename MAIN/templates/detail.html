@@ -3,6 +3,7 @@
 {% load static %}
 {% block content %}
 
+
     <div class="container">
         <!--Navigation-->
         <div class="navigate">
@@ -14,13 +15,13 @@
             <!--Original thread-->
             <div class="head">
                 <div class="authors">Author</div>
-                <div class="content">Topic: {{post.title}} (Read {% get_hit_count for post %} Times)</div>
+                <div class="content">Topic: {{post.title}} (Read {% get_hit_count for post %} Times, Posted on {{post.date|date}})</div>
             </div>
 
             <div class="body">
                 <div class="authors">
-                    <div class="username"><a href="">{{post.user.fullname|title}}</a></div>
-                    <div>Role</div>
+                    <div class="username"><a href="">{{post.user.user|title}}</a></div>
+                    <div><a href="">{{post.user.fullname|title}}</a></div>
                     <img src="{% if post.user.profile_pic %}{{ post.user.profile_pic.url }}{% else %}{% static 'default-profile-pic.jpg' %}{% endif %}" alt="Profile Picture">
                     <div>Posts: <u>{{post.user.num_posts}}</u></div>
                     <div>Points: <u>{{post.user.points}}</u></div>
@@ -48,7 +49,7 @@
         <form action="." method="post">
             {% csrf_token %}
             <div class="comment-area hide" id="comment-area">
-                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
+                <textarea name="comment" id="comment" class="tiny-editor" placeholder="comment here ... "></textarea>
                 <input type="submit" value="submit" name="comment-form">
             </div>
         </form>
@@ -65,14 +66,14 @@
         <div class="comments-container">
             <div class="body">
                 <div class="authors">
-                    <div class="username"><a href="">{{comment.user.fullname|title}}</a></div>
-                    <div>Role</div>
+                    <div class="username"><a href="">{{post.user.user|title}}</a></div>
+                    <div><a href="">{{post.user.fullname|title}}</a></div>
                     <img src="{% if comment.user.profile_pic %}{{ comment.user.profile_pic.url }}{% else %}{% static 'default-profile-pic.jpg' %}{% endif %}" alt="Profile Picture">
                     <div>Posts: <u>{{comment.user.num_posts}}</u></div>
                     <div>Points: <u>{{comment.user.points}}</u></div>
                 </div>
                 <div class="content">
-                    {{comment.content}}
+                    {{comment.content|safe}}
                     <br>
                     {% if request.user.is_authenticted %}
                     <div class="comment">
@@ -86,12 +87,12 @@
         <form action="." method="post">
             {% csrf_token %}
             <div class="comment-area hide" id="comment{{comment.id}}">
-                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
+                <textarea name="reply" id="reply" class="tiny-editor" placeholder="reply here ... "></textarea>
                 <input type="submit" value="submit" name="reply-form">
                 <input type="hidden" name="comment-id" value="{{comment.id}}">
             </div>
         </form>
-       
+
         <!--Reply section-->
         {% for reply in comment.replies.all %}
         <div class="comments-container" style="width: 95%; margin-left:5%;">
@@ -104,7 +105,7 @@
                     <div>Points: <u>{{reply.user.points}}</u></div>
                 </div>
                 <div class="content">
-                    {{reply.content}}
+                    {{reply.content|safe}}
                     <br>
                 </div>
             </div>
@@ -117,3 +118,19 @@
 
     </div>
     {% endblock content %}
+
+    {% block extra_js %}
+    <script>
+        tinymce.init({
+            theme: 'silver',
+            height: 500,
+            width: 1600,
+            font_size_input_default_unit: "12pt",
+            selector: 'textarea',
+            plugins: 'advlist,autolink,lists,link,image,charmap,print,preview,anchor,emoticons,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount',
+            toolbar: 'undo redo | fontsizeinput | bold italic underline backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | emoticons',
+            menubar: true,
+            statusbar: false
+        });
+    </script>
+    {% endblock %}
